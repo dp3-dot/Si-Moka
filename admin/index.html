@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1D2455">
+<title>Admin Si-Moka</title>
+<style>
+body{margin:0;min-height:100dvh;display:grid;place-items:center;background:#F6F4FA;color:#1D2455;font:16px/1.5 system-ui,sans-serif;text-align:center;padding:24px}
+h1{margin:0 0 8px}a{color:#C93A6B;font-weight:700}
+</style>
+</head>
+<body>
+<div>
+  <h1>Admin Si-Moka</h1>
+  <p id="pesan">Membuka halaman admin...</p>
+  <p><a id="tautan" href="#">Klik di sini bila tidak terbuka otomatis</a></p>
+</div>
+<script>
+// Isi dengan URL deployment ADMIN (bukan deployment form tamu), diakhiri ?p=admin
+const URL_ADMIN = 'https://script.google.com/macros/s/AKfycbzSqH3VqfSbBCBLCWpHg82SnQHHmcC4EA4DbWbkkDk0EqEC_7eSW1bGhEXgHH6IwJD_9g/exec?p=admin';
+
+if (URL_ADMIN.includes('GANTI')) {
+  document.getElementById('pesan').textContent = 'Alamat admin belum diisi di file ini.';
+} else {
+  document.getElementById('tautan').href = URL_ADMIN;
+  location.replace(URL_ADMIN);
+}
+</script>
+</body>
+</html>
