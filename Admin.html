@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1D2455;--rose:#C93A6B;--sun:#F4B63F;--paper:#F6F4FA;--line:#D9D5E7;--mute:#5E6285}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 'Plus Jakarta Sans',system-ui,sans-serif}
+.top{background:var(--ink);color:#fff;padding:14px 20px;border-bottom:5px solid var(--sun)}
+.top b{font-size:18px}.top span{display:block;font-size:12px;opacity:.85}
+main{max-width:640px;margin:0 auto;padding:20px}
+.tabs{display:flex;gap:8px;margin-bottom:18px}
+.tabs button{flex:1;padding:12px;border:1.5px solid var(--line);border-radius:12px;background:#fff;font:700 15px inherit;color:var(--ink);cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+:focus-visible{outline:3px solid var(--rose);outline-offset:2px}
+.card{background:#fff;border-radius:18px;padding:24px;text-align:center;box-shadow:0 10px 28px rgba(29,36,85,.12)}
+#qr{display:inline-block;padding:14px;background:#fff;border:2px solid var(--line);border-radius:14px;min-height:100px}
+#qr img,#qr canvas{display:block}
+.bar{height:8px;background:var(--line);border-radius:4px;margin:18px auto 6px;max-width:300px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--rose);width:100%}
+.mute{color:var(--mute);font-size:14px;margin:6px 0}
+h1{font-size:26px;margin:16px 0 4px;line-height:1.2}
+.row{display:flex;gap:10px;align-items:center;padding:12px 14px;background:#fff;border:1.5px solid var(--line);border-radius:12px;margin-bottom:8px}
+.row.off{opacity:.55}
+.row div{flex:1;min-width:0}.row b{display:block;overflow-wrap:anywhere}.row small{color:var(--mute)}
+.btn{padding:10px 14px;border:0;border-radius:10px;background:var(--ink);color:#fff;font:700 14px inherit;cursor:pointer}
+.btn.alt{background:#fff;color:var(--rose);border:1.5px solid var(--rose)}
+form{display:flex;gap:8px;margin:14px 0}
+input{flex:1;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;font:inherit}
+.err{color:var(--rose);font-weight:600}
+#poster{display:none;text-align:center;padding:40px;font-family:'Plus Jakarta Sans',sans-serif;color:#1D2455}
+#poster h1{font-size:44px}#poster ol{display:inline-block;text-align:left;font-size:20px;margin:18px 0}
+#poster .q{display:inline-block;padding:18px;border:4px solid #1D2455;border-radius:20px}
+.tabs button{flex:1 1 40%}
+.filters{display:flex;gap:8px;margin:12px 0}
+select{flex:1;padding:12px;border:1.5px solid var(--line);border-radius:12px;font:inherit;background:#fff;color:var(--ink);min-width:0}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}
+.stats div{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:10px 4px;text-align:center}
+.stats b{display:block;font-size:24px;line-height:1.2}.stats span{font-size:12px;color:var(--mute)}
+.bz{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:13px}
+.bz span{flex:0 0 46%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bz p{flex:1;margin:0}.bz i{display:block;height:10px;border-radius:5px;background:var(--rose);min-width:2px}
+.bz u{text-decoration:none;font-weight:700;width:28px;text-align:right}
+.row small{display:block}
+@media print{body>*:not(#poster){display:none!important}#poster{display:block}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="top"><b>Admin Buku Tamu</b><span>Dinas PPPA, PPKB Kabupaten Rejang Lebong</span></div>
+<main>
+  <div class="tabs" role="tablist">
+    <button role="tab" id="t0" aria-selected="true">Ringkasan</button>
+    <button role="tab" id="t3" aria-selected="false">Laporan</button>
+    <button role="tab" id="t1" aria-selected="false">QR layar</button>
+    <button role="tab" id="t2" aria-selected="false">QR cetak</button>
+  </div>
+
+  <section id="p0">
+    <div class="filters"><input type="month" id="bln" aria-label="Bulan"></div>
+    <div class="stats">
+      <div><b id="s1">-</b><span>hari ini</span></div><div><b id="s2">-</b><span>7 hari</span></div>
+      <div><b id="s3">-</b><span>bulan ini</span></div><div><b id="s4">-</b><span>rating</span></div>
+    </div>
+    <div id="bd"></div>
+    <div class="filters"><input id="cari" placeholder="Cari nama, instansi, keperluan" aria-label="Cari tamu"><select id="fb2" aria-label="Filter bidang"></select></div>
+    <div id="tb"></div>
+    <p class="err" id="msg0" role="alert"></p>
+  </section>
+
+  <section id="p3" hidden>
+    <p class="mute">Laporan berisi rekap per bidang dan daftar lengkap tamu pada bulan yang dipilih. PDF disimpan di folder "Laporan Buku Tamu" di Google Drive Anda.</p>
+    <div class="filters"><input type="month" id="bln2" aria-label="Bulan laporan"><button class="btn" id="pdf" type="button">Buat PDF</button></div>
+    <p id="msg3" role="status"></p>
+  </section>
+
+  <section id="p1" class="card" hidden>
+    <div id="qr"></div>
+    <div class="bar" aria-hidden="true"><i id="bar"></i></div>
+    <h1>Scan untuk mengisi buku tamu</h1>
+    <p class="mute">QR berganti otomatis tiap 2 menit. Biarkan halaman ini terbuka di layar PC resepsionis.</p>
+    <p class="err" id="msg" role="alert"></p>
+  </section>
+
+  <section id="p2" hidden>
+    <p class="mute">QR cetak berlaku sampai dicabut. Cabut dan ganti bila fotonya tersebar atau sebulan sekali.</p>
+    <form id="fb"><input id="lb" maxlength="60" placeholder="Nama QR, misalnya Meja resepsionis" required aria-label="Nama QR">
+      <button class="btn" type="submit">Buat QR</button></form>
+    <div id="list"></div>
+    <p class="err" id="msg2" role="alert"></p>
+  </section>
+</main>
+
+<div id="poster">
+  <h1>Buku Tamu</h1>
+  <p style="font-size:18px;margin:0 0 22px">Dinas Pemberdayaan Perempuan dan Perlindungan Anak,<br>Pengendalian Penduduk dan Keluarga Berencana<br>Kabupaten Rejang Lebong</p>
+  <div class="q" id="pq"></div><br>
+  <ol><li>Scan QR dengan kamera ponsel.</li><li>Izinkan akses lokasi.</li><li>Isi data kunjungan Anda.</li></ol>
+  <p style="font-size:14px">Hanya bisa diisi saat Anda berada di kantor.</p>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const rpc = (fn, ...a) => new Promise((ok, no) => google.script.run.withSuccessHandler(ok).withFailureHandler(no)[fn](...a));
+const qr = (el, text, size) => { el.replaceChildren(); new QRCode(el, { text, width: size, height: size, correctLevel: QRCode.CorrectLevel.M }); };
+
+let jalan = false;
+function tab(n) {
+  [0, 1, 2, 3].forEach(i => {
+    $('#p' + i).hidden = i !== n; $('#t' + i).setAttribute('aria-selected', i === n);
+  });
+  if (n === 0) muatRingkas();
+  if (n === 1 && !jalan) { jalan = true; segar(); }
+  if (n === 2) muatCetak();
+}
+[0, 1, 2, 3].forEach(i => $('#t' + i).onclick = () => tab(i));
+
+const bulanIni = new Date().toLocaleDateString('sv').slice(0, 7);
+$('#bln').value = bulanIni; $('#bln2').value = bulanIni;
+let data = null;
+
+async function muatRingkas() {
+  try {
+    data = await rpc('adminRingkasan', $('#bln').value || '');
+    $('#s1').textContent = data.hariIni; $('#s2').textContent = data.minggu;
+    $('#s3').textContent = data.total; $('#s4').textContent = data.rating == null ? '-' : data.rating;
+    const mx = Math.max(1, ...data.perBidang.map(x => x.n)), bd = $('#bd'); bd.replaceChildren();
+    data.perBidang.forEach(x => {
+      const r = document.createElement('div'); r.className = 'bz';
+      const s = document.createElement('span'); s.textContent = x.b; s.title = x.b;
+      const p = document.createElement('p'), i = document.createElement('i'); i.style.width = (x.n / mx * 100) + '%'; p.append(i);
+      const u = document.createElement('u'); u.textContent = x.n; r.append(s, p, u); bd.append(r);
+    });
+    const sel = $('#fb2');
+    if (!sel.options.length) {
+      sel.add(new Option('Semua bidang', ''));
+      data.perBidang.forEach(x => sel.add(new Option(x.b, x.b)));
+    }
+    $('#msg0').textContent = ''; gambarTabel();
+  } catch (e) { $('#msg0').textContent = e.message || e; }
+}
+function gambarTabel() {
+  const q = $('#cari').value.toLowerCase(), fb = $('#fb2').value, box = $('#tb'); box.replaceChildren();
+  const ds = (data ? data.daftar : []).filter(x => (!fb || x.bidang === fb) &&
+    (!q || (x.nama + ' ' + x.instansi + ' ' + x.perlu).toLowerCase().includes(q)));
+  if (!ds.length) { box.textContent = 'Belum ada data.'; return; }
+  ds.slice(0, 100).forEach(x => {
+    const r = document.createElement('div'); r.className = 'row'; const t = document.createElement('div');
+    const b = document.createElement('b'); b.textContent = x.nama;
+    const s1 = document.createElement('small'); s1.textContent = x.w + (x.k ? ' sampai ' + x.k : '') + ' - ' + x.instansi;
+    const s2 = document.createElement('small'); s2.textContent = x.bidang + ': ' + x.perlu;
+    t.append(b, s1, s2); r.append(t); box.append(r);
+  });
+}
+$('#bln').onchange = muatRingkas; $('#cari').oninput = gambarTabel; $('#fb2').onchange = gambarTabel;
+
+$('#pdf').onclick = async e => {
+  const b = e.target, m = $('#msg3'); b.disabled = true; b.textContent = 'Membuat...'; m.textContent = '';
+  try {
+    const r = await rpc('adminBuatPdf', $('#bln2').value || bulanIni);
+    const a = document.createElement('a'); a.href = r.url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'Buka ' + r.nama;
+    m.replaceChildren(a);
+  } catch (x) { m.className = 'err'; m.textContent = x.message || x; }
+  b.disabled = false; b.textContent = 'Buat PDF';
+};
+
+async function segar() {
+  try {
+    const r = await rpc('adminKode');
+    qr($('#qr'), r.url, 300); $('#msg').textContent = '';
+    const b = $('#bar'); b.style.transition = 'none'; b.style.width = (r.sisa / r.total * 100) + '%';
+    b.offsetWidth; b.style.transition = 'width ' + r.sisa + 's linear'; b.style.width = '0%';
+    setTimeout(segar, (r.sisa + 1) * 1000);
+  } catch (e) { $('#msg').textContent = 'Gagal memuat QR: ' + (e.message || e); setTimeout(segar, 10000); }
+}
+
+function gambar(daftar) {
+  const box = $('#list'); box.replaceChildren();
+  if (!daftar.length) { box.textContent = 'Belum ada QR cetak.'; return; }
+  daftar.forEach(d => {
+    const r = document.createElement('div'); r.className = 'row' + (d.aktif ? '' : ' off');
+    const t = document.createElement('div');
+    const b = document.createElement('b'); b.textContent = d.label;
+    const s = document.createElement('small'); s.textContent = d.aktif ? 'Aktif' : 'Dicabut';
+    t.append(b, s); r.append(t);
+    if (d.aktif) {
+      const p = document.createElement('button'); p.className = 'btn'; p.textContent = 'Cetak';
+      p.onclick = () => { qr($('#pq'), d.url, 340); setTimeout(() => window.print(), 300); };
+      const c = document.createElement('button'); c.className = 'btn alt'; c.textContent = 'Cabut';
+      c.onclick = async () => { if (confirm('Cabut QR "' + d.label + '"? QR yang sudah ditempel tidak akan berfungsi lagi.')) gambar(await rpc('adminCabut', d.kode)); };
+      r.append(p, c);
+    }
+    box.append(r);
+  });
+}
+async function muatCetak() { try { gambar(await rpc('adminDaftarCetak')); } catch (e) { $('#msg2').textContent = e.message || e; } }
+$('#fb').onsubmit = async e => {
+  e.preventDefault();
+  try { gambar(await rpc('adminBuatCetak', $('#lb').value)); $('#lb').value = ''; $('#msg2').textContent = ''; }
+  catch (x) { $('#msg2').textContent = x.message || x; }
+};
+tab(0);
+</script>
+</body>
+</html>
