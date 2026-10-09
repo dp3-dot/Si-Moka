@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1D2455">
+<meta name="robots" content="noindex">
+<title>Buku Tamu - Dinas PPPA, PPKB Rejang Lebong</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1D2455;--rose:#C93A6B;--sun:#F4B63F;--paper:#F6F4FA;--leaf:#1F8A5B;--line:#D9D5E7;--mute:#5E6285}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 'Plus Jakarta Sans',system-ui,sans-serif;min-height:100dvh}
+.top{background:var(--ink);color:#fff;padding:max(14px,env(safe-area-inset-top)) 20px 16px;border-bottom:5px solid var(--sun);display:flex;gap:12px;align-items:center}
+.mark{width:42px;height:42px;border-radius:12px;background:var(--rose);flex:none;display:grid;place-items:center}
+.top b{display:block;font-size:18px;line-height:1.2}
+.top span{display:block;font-size:12px;line-height:1.35;opacity:.85}
+main{max-width:480px;margin:0 auto;padding:22px 20px calc(40px + env(safe-area-inset-bottom))}
+h1{font-size:25px;line-height:1.2;margin:6px 0 8px}
+h2{font-size:18px;margin:26px 0 4px}
+.lead{color:var(--mute);margin:0 0 18px}
+.hint{color:var(--mute);font-size:13px;margin:6px 0 14px}
+.f{display:block;font-weight:600;font-size:14px;margin:16px 0 6px;padding:0}
+input[type=text],input[type=tel],textarea{width:100%;font:inherit;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;background:#fff;color:var(--ink)}
+textarea{resize:vertical;min-height:84px}
+:focus-visible{outline:3px solid var(--rose);outline-offset:2px}
+fieldset{border:0;margin:0;padding:0}
+.opt{display:flex;gap:12px;align-items:flex-start;padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;background:#fff;margin-bottom:8px;cursor:pointer;font-size:15px}
+.opt input{margin-top:3px;width:18px;height:18px;flex:none;accent-color:var(--rose)}
+.opt:has(input:checked){border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.btn{display:block;width:100%;min-height:52px;margin-top:20px;border:0;border-radius:14px;background:var(--ink);color:#fff;font:700 16px 'Plus Jakarta Sans',system-ui,sans-serif;cursor:pointer}
+.btn:disabled{opacity:.6;cursor:wait}
+.err{background:#FCE8EE;border:1.5px solid var(--rose);border-radius:12px;padding:12px 14px;margin:16px 0 0;font-size:14px}
+.err[hidden]{display:none}
+.hp{position:absolute;left:-9999px}
+.spin{width:38px;height:38px;border:4px solid var(--line);border-top-color:var(--rose);border-radius:50%;margin:30px 0 18px;animation:r 0.9s linear infinite}
+@keyframes r{to{transform:rotate(360deg)}}
+.tiket{background:#fff;border-radius:18px;margin:10px 0 8px;box-shadow:0 10px 28px rgba(29,36,85,.14);overflow:hidden;animation:drop .5s cubic-bezier(.2,.9,.3,1.15)}
+@keyframes drop{from{opacity:0;transform:translateY(-18px)}}
+.tiket .hd{background:var(--leaf);color:#fff;padding:15px 20px;font-weight:700}
+.tiket .bd{position:relative;padding:18px 20px;border-bottom:2px dashed var(--line)}
+.tiket .bd::before,.tiket .bd::after{content:"";position:absolute;bottom:-11px;width:20px;height:20px;border-radius:50%;background:var(--paper)}
+.tiket .bd::before{left:-10px}.tiket .bd::after{right:-10px}
+.tiket small{color:var(--mute);font-size:13px}
+.tiket .id{font-size:30px;font-weight:800;letter-spacing:.03em;line-height:1.2}
+.tiket .nm{font-weight:700;font-size:18px;margin-top:12px}
+.tiket .mt{color:var(--mute);font-size:14px}
+.tiket .ft{padding:14px 20px;font-size:13px;color:var(--mute)}
+.rate{display:flex;gap:8px;margin-top:12px}
+.rate label{flex:1;position:relative}
+.rate input{position:absolute;opacity:0;inset:0}
+.rate span{display:block;text-align:center;padding:12px 0;border:1.5px solid var(--line);border-radius:12px;background:#fff;font-weight:700;cursor:pointer}
+.rate input:checked+span{background:var(--sun);border-color:var(--ink)}
+.rate input:focus-visible+span{outline:3px solid var(--rose);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="mark" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><path d="M4 5h6a2 2 0 0 1 2 2v12a2 2 0 0 0-2-2H4zM20 5h-6a2 2 0 0 0-2 2v12a2 2 0 0 1 2-2h6z"/></svg></div>
+  <div><b>Buku Tamu</b><span>Dinas Pemberdayaan Perempuan dan Perlindungan Anak, Pengendalian Penduduk dan KB<br>Kabupaten Rejang Lebong</span></div>
+</header>
+<main id="app" aria-live="polite"></main>
+
+<script>
+const API = 'https://script.google.com/macros/s/AKfycbzSqH3VqfSbBCBLCWpHg82SnQHHmcC4EA4DbWbkkDk0EqEC_7eSW1bGhEXgHH6IwJD_9g/exec';   // URL deploy Apps Script (berakhiran /exec)
+
+const $ = s => document.querySelector(s), app = $('#app');
+const dev = localStorage.bt_dev || (localStorage.bt_dev = crypto.randomUUID());
+const kode = new URLSearchParams(location.search).get('k');
+if (kode) history.replaceState(null, '', location.pathname);   // sembunyikan kode dari alamat halaman
+let state = {};
+
+const h = (t, a = {}, ...k) => {
+  const e = document.createElement(t);
+  for (const [x, v] of Object.entries(a)) {
+    if (x === 'class') e.className = v;
+    else if (x.startsWith('on')) e.addEventListener(x.slice(2), v);
+    else if (v !== false && v != null) e.setAttribute(x, v);
+  }
+  e.append(...k.flat().filter(x => x != null && x !== false));
+  return e;
+};
+const show = (...n) => { app.replaceChildren(...n); scrollTo(0, 0); };
+const btn = (t, f) => h('button', { type: 'button', class: 'btn', onclick: f }, t);
+const info = (judul, teks, tombol) => show(h('div', {}, h('h1', {}, judul), h('p', { class: 'lead' }, teks), tombol));
+const post = async d => (await fetch(API, { method: 'POST', body: JSON.stringify({ ...d, dev }) })).json();
+const getPos = () => new Promise((ok, no) => navigator.geolocation
+  ? navigator.geolocation.getCurrentPosition(
+      p => ok({ lat: p.coords.latitude, lng: p.coords.longitude, acc: p.coords.accuracy }),
+      no, { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 })
+  : no(new Error('gps')));
+
+async function mulai() {
+  show(h('div', {}, h('div', { class: 'spin' }), h('h1', {}, 'Memeriksa lokasi Anda'),
+    h('p', { class: 'lead' }, 'Izinkan akses lokasi saat diminta. Lokasi hanya dipakai untuk memastikan Anda berada di kantor dan tidak disimpan.')));
+  let pos;
+  try { pos = await getPos(); }
+  catch (e) { return info('Lokasi belum aktif', 'Aktifkan GPS dan izinkan akses lokasi untuk halaman ini, lalu coba lagi.', btn('Coba lagi', mulai)); }
+  let r;
+  try { r = await post({ aksi: 'mulai', k: kode, ...pos }); }
+  catch (e) { return info('Koneksi bermasalah', 'Periksa internet Anda, lalu coba lagi.', btn('Coba lagi', mulai)); }
+  if (!r.ok) return info(r.judul || 'Belum bisa dilanjutkan', r.pesan, r.ulang ? btn('Coba lagi', mulai) : null);
+  state = { token: r.token, pos };
+  form(r.bidang);
+}
+
+const fld = (label, name, attrs = {}) => h('div', {},
+  h('label', { class: 'f', for: name }, label),
+  h('input', { id: name, name, type: 'text', ...attrs }));
+
+function form(bidang) {
+  const err = h('div', { class: 'err', role: 'alert', hidden: true });
+  show(h('form', { onsubmit: kirim },
+    h('h1', {}, 'Isi buku tamu'),
+    h('p', { class: 'lead' }, 'Cukup satu menit. Data hanya dilihat petugas kantor.'),
+    fld('Nama lengkap', 'nama', { required: '', maxlength: 80, autocomplete: 'name' }),
+    fld('Asal instansi atau alamat', 'instansi', { required: '', maxlength: 100 }),
+    fld('Nomor HP', 'hp', { required: '', type: 'tel', inputmode: 'tel', maxlength: 18, autocomplete: 'tel' }),
+    h('label', { class: 'f', for: 'keperluan' }, 'Keperluan'),
+    h('textarea', { id: 'keperluan', name: 'keperluan', required: '', maxlength: 300 }),
+    h('fieldset', {}, h('legend', { class: 'f' }, 'Bidang yang dituju'),
+      bidang.map((b, i) => h('label', { class: 'opt' },
+        h('input', { type: 'radio', name: 'bidang', value: b, required: i ? null : '' }), b))),
+    fld('Pegawai yang dituju (jika ada)', 'pegawai', { maxlength: 80 }),
+    h('input', { class: 'hp', name: 'web', tabindex: '-1', autocomplete: 'off', 'aria-hidden': 'true' }),
+    h('label', { class: 'opt', style: 'margin-top:18px' },
+      h('input', { type: 'checkbox', name: 'setuju', value: '1', required: '' }),
+      'Saya setuju data ini dicatat untuk keperluan administrasi kunjungan kantor.'),
+    err,
+    h('button', { type: 'submit', class: 'btn' }, 'Kirim data kunjungan')));
+}
+
+async function kirim(e) {
+  e.preventDefault();
+  const f = e.target, b = f.querySelector('[type=submit]'), err = f.querySelector('.err');
+  const d = Object.fromEntries(new FormData(f));
+  b.disabled = true; b.textContent = 'Mengirim...'; err.hidden = true;
+  let pos = state.pos;
+  try { pos = await getPos(); } catch (_) {}
+  try {
+    const r = await post({ aksi: 'kirim', token: state.token, ...pos, ...d });
+    if (!r.ok) { if (r.selesai) return info('Sesi berakhir', r.pesan); throw new Error(r.pesan); }
+    const t = { ...r.tiket, tgl: new Date().toDateString() };
+    localStorage.bt_tiket = JSON.stringify(t);
+    tiket(t);
+  } catch (x) {
+    err.textContent = x instanceof TypeError ? 'Koneksi bermasalah. Periksa internet lalu kirim lagi.' : (x.message || 'Gagal mengirim. Coba lagi.');
+    err.hidden = false; b.disabled = false; b.textContent = 'Kirim data kunjungan';
+  }
+}
+
+function tiket(t) {
+  let nilai = 0;
+  const w = new Date(t.t).toLocaleString('id-ID', { dateStyle: 'long', timeStyle: 'short' });
+  const err = h('div', { class: 'err', role: 'alert', hidden: true });
+  show(h('div', {},
+    h('div', { class: 'tiket' },
+      h('div', { class: 'hd' }, 'Kunjungan Anda tercatat'),
+      h('div', { class: 'bd' }, h('small', {}, 'Nomor kunjungan'), h('div', { class: 'id' }, t.id),
+        h('div', { class: 'nm' }, t.nama), h('div', { class: 'mt' }, t.bidang), h('div', { class: 'mt' }, w)),
+      h('div', { class: 'ft' }, 'Tunjukkan layar ini kepada petugas bila diminta. Data tidak dapat diubah oleh tamu.')),
+    h('h2', {}, 'Sudah selesai berkunjung?'),
+    h('p', { class: 'lead' }, 'Nilai layanan kami, lalu catat jam keluar. Setelah itu halaman ini terhapus dari ponsel Anda.'),
+    h('div', { class: 'rate', role: 'radiogroup', 'aria-label': 'Kepuasan layanan' },
+      [1, 2, 3, 4, 5].map(n => h('label', {},
+        h('input', { type: 'radio', name: 'rt', value: n, onchange: () => nilai = n }), h('span', {}, n)))),
+    h('p', { class: 'hint' }, '1 = kurang, 5 = sangat baik. Penilaian boleh dikosongkan.'),
+    err,
+    btn('Catat jam keluar', async ev => {
+      const b = ev.target; b.disabled = true;
+      try {
+        const r = await post({ aksi: 'keluar', id: t.id, kunci: t.kunci, rating: nilai });
+        if (!r.ok) throw new Error(r.pesan);
+        localStorage.removeItem('bt_tiket');
+        info('Terima kasih sudah berkunjung', 'Jam keluar Anda sudah dicatat. Hati-hati di jalan.');
+      } catch (x) {
+        err.textContent = x instanceof TypeError ? 'Koneksi bermasalah. Coba lagi.' : (x.message || 'Gagal mencatat. Coba lagi.');
+        err.hidden = false; b.disabled = false;
+      }
+    })));
+}
+
+(function () {
+  let t; try { t = JSON.parse(localStorage.bt_tiket); } catch (_) {}
+  if (t && t.tgl === new Date().toDateString()) return tiket(t);
+  if (!kode) return info('Scan QR di kantor', 'Buku tamu ini hanya bisa dibuka dengan memindai QR yang ditampilkan di meja resepsionis.');
+  mulai();
+})();
+</script>
+</body>
+</html>
